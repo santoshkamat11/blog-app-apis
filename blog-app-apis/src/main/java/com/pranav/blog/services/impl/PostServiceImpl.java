@@ -15,6 +15,7 @@ import com.pranav.blog.entities.Post;
 import com.pranav.blog.entities.User;
 import com.pranav.blog.exceptions.ResourceNotFoundException;
 import com.pranav.blog.payloads.PostDto;
+import com.pranav.blog.payloads.PostResponse;
 import com.pranav.blog.repositories.CategoryRepo;
 import com.pranav.blog.repositories.PostRepo;
 import com.pranav.blog.repositories.UserRepo;
@@ -70,14 +71,22 @@ public class PostServiceImpl implements PostService {
 	}
 
 	@Override
-	public List<PostDto> getAllPost(Integer pageNumber , Integer pageSize) {
+	public PostResponse getAllPost(Integer pageNumber , Integer pageSize) {
 		
 		
 		PageRequest p = PageRequest.of(pageNumber, pageSize);
 		Page<Post> pagePost = postRepo.findAll(p);
 		List<Post> allPosts = pagePost.getContent();
 		List<PostDto> postDtos = allPosts.stream().map(post -> modelMapper.map(post, PostDto.class)).collect(Collectors.toList());
-		return postDtos;
+		PostResponse postResponse = new PostResponse();
+		postResponse.setContent(postDtos);
+		postResponse.setPageNumber(pageNumber);
+		postResponse.setPageSize(pagePost.getNumber());
+		postResponse.setPageSize(pagePost.getSize());
+		postResponse.setTotalElements(pagePost.getTotalElements());
+		postResponse.setTotalPages(pagePost.getTotalPages());
+		postResponse.setLastPage(pagePost.isLast());
+		return postResponse;
 	}
 
 	@Override

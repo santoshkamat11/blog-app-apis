@@ -4,6 +4,7 @@ import java.util.List;
 
 import com.pranav.blog.entities.Post;
 import com.pranav.blog.payloads.PostDto;
+import com.pranav.blog.payloads.PostResponse;
 
 public interface PostService {
 	
@@ -20,7 +21,7 @@ public interface PostService {
 	
 	
 	// get all post
-	List<PostDto> getAllPost(Integer pageNumber , Integer pageSize);
+	PostResponse getAllPost(Integer pageNumber , Integer pageSize);
 	
 	// get single post
 	PostDto getPostById(Integer postId);
