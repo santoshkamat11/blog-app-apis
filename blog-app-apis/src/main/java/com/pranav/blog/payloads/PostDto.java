@@ -2,9 +2,6 @@ package com.pranav.blog.payloads;
 
 import java.util.Date;
 
-import com.pranav.blog.entities.Category;
-import com.pranav.blog.entities.User;
-
 import lombok.AllArgsConstructor;
 import lombok.Getter;
 import lombok.NoArgsConstructor;
@@ -15,6 +12,8 @@ import lombok.Setter;
 @AllArgsConstructor
 @NoArgsConstructor
 public class PostDto {
+	
+	private Integer postId;
 	
 	private String title;
 	
