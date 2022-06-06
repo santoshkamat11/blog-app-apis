@@ -1,6 +1,10 @@
 package com.pranav.blog.payloads;
 
 import java.util.Date;
+import java.util.HashSet;
+import java.util.Set;
+
+import com.pranav.blog.entities.Comment;
 
 import lombok.AllArgsConstructor;
 import lombok.Getter;
@@ -28,5 +32,7 @@ public class PostDto {
 	
 	//else recursion occurs
 	private UserDto user;
+	
+	private Set<CommentDto> comments = new HashSet<>();
 
 }
