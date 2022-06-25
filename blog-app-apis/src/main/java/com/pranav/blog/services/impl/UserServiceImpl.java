@@ -1,17 +1,22 @@
 package com.pranav.blog.services.impl;
 
 import java.util.List;
+import java.util.Optional;
 import java.util.stream.Collectors;
 
 import org.modelmapper.ModelMapper;
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.security.crypto.password.PasswordEncoder;
 import org.springframework.stereotype.Service;
 
+import com.pranav.blog.entities.Role;
 import com.pranav.blog.entities.User;
+import com.pranav.blog.exceptions.ResourceNotFoundException;
 import com.pranav.blog.payloads.UserDto;
+import com.pranav.blog.repositories.RoleRepo;
 import com.pranav.blog.repositories.UserRepo;
 import com.pranav.blog.services.UserService;
-import com.pranav.blog.exceptions.*;
+import com.pranav.blog.config.AppConstants;
 
 @Service
 public class UserServiceImpl implements UserService {
@@ -21,6 +26,12 @@ public class UserServiceImpl implements UserService {
 	
 	@Autowired
 	private ModelMapper modelMapper;
+	
+	@Autowired
+	private PasswordEncoder passwordEncoder;
+	
+	@Autowired
+	private RoleRepo roleRepo;
 
 	@Override
 	public UserDto createUser(UserDto userDto) {
@@ -91,6 +102,23 @@ public class UserServiceImpl implements UserService {
 		UserDto userDto = modelMapper.map(user , UserDto.class);
 		
 		return userDto;
+	}
+
+	@Override
+	public UserDto registerNewUser(UserDto userDto) {
+		
+		User user = modelMapper.map(userDto , User.class);
+		
+		// encoded the password
+		user.setPassword(passwordEncoder.encode(user.getPassword()));
+		
+		// roles
+		Role role = roleRepo.findById(AppConstants.NORMAL_USER).get();
+		
+		user.getRoles().add(role);
+		User newUser = userRepo.save(user);
+		
+		return modelMapper.map(newUser, UserDto.class);
 	}
 
 }

@@ -1,6 +1,5 @@
 package com.pranav.blog.exceptions;
 
-import java.io.ObjectInputStream.GetField;
 import java.util.HashMap;
 import java.util.Map;
 
@@ -33,6 +32,13 @@ public class GlobalExceptionHandler {
 			resp.put(fieldName, message);
 		});
 		return new ResponseEntity<Map<String,String>>(resp , HttpStatus.BAD_REQUEST);
+	}
+	
+	@ExceptionHandler(ApiException.class)
+	public ResponseEntity<ApiResponse> handleApiException(ApiException ex){
+		String message = ex.getMessage();
+		ApiResponse apiResponse = new ApiResponse(message, false);
+		return new ResponseEntity<ApiResponse>(apiResponse , HttpStatus.BAD_REQUEST);
 	}
 	
 	
