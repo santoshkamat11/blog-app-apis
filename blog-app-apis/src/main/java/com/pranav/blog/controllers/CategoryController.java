@@ -21,7 +21,7 @@ import com.pranav.blog.payloads.CategoryDto;
 import com.pranav.blog.services.CategoryService;
 
 @RestController
-@RequestMapping("/api/categories")
+@RequestMapping("/api/v1/categories")
 public class CategoryController {
 
 	@Autowired

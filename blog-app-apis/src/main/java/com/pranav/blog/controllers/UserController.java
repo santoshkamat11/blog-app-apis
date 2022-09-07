@@ -22,7 +22,7 @@ import com.pranav.blog.payloads.UserDto;
 import com.pranav.blog.services.UserService;
 
 @RestController
-@RequestMapping("/api/users")
+@RequestMapping("/api/v1/users")
 public class UserController {
 
 	@Autowired

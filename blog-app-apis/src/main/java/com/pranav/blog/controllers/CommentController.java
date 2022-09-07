@@ -15,7 +15,7 @@ import com.pranav.blog.payloads.CommentDto;
 import com.pranav.blog.services.CommentService;
 
 @RestController
-@RequestMapping("/api/comments")
+@RequestMapping("/api/v1/")
 public class CommentController {
 	
 	@Autowired

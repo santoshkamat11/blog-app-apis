@@ -1,6 +1,5 @@
 package com.pranav.blog.controllers;
 
-import java.io.FileNotFoundException;
 import java.io.IOException;
 import java.io.InputStream;
 import java.util.List;
@@ -32,7 +31,7 @@ import com.pranav.blog.services.FileService;
 import com.pranav.blog.services.PostService;
 
 @RestController
-@RequestMapping("/api")
+@RequestMapping("/api/v1/")
 public class PostController {
 
 	@Autowired

@@ -7,6 +7,9 @@ import javax.validation.constraints.Email;
 import javax.validation.constraints.NotEmpty;
 import javax.validation.constraints.Size;
 
+import com.fasterxml.jackson.annotation.JsonIgnore;
+import com.fasterxml.jackson.annotation.JsonProperty;
+
 import lombok.Getter;
 import lombok.NoArgsConstructor;
 import lombok.Setter;
@@ -23,6 +26,7 @@ public class UserDto {
 	private String name;
 	
 	@Email(message = "email address is not valid")
+	@NotEmpty
 	private String email;
 	
 	@NotEmpty
@@ -33,5 +37,15 @@ public class UserDto {
 	private String about;
 	
 	private Set<RoleDto> roles = new HashSet<>();
+	
+	@JsonIgnore
+	public String getPassword() {
+		return this.password;
+	}
+	
+	@JsonProperty
+	public void setPassword(String password) {
+		this.password = password;
+	}
 
 }
